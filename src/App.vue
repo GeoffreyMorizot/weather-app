@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CurrentWeather />
+    <DetailWeather/>
   </div>
+  
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CurrentWeather from './components/CurrentWeather.vue'
+import DetailWeather from './components/DetailWeather.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    CurrentWeather,
+    DetailWeather,
+  },
 }
 </script>
 
-<style>
+<style scoped lang="scss" >
+@mixin mobile {
+    @media (max-width: 700px) {
+        @content;
+    }
+}
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  overflow: hidden;
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+      @include mobile {
+        flex-direction: column;
+    }
 }
 </style>
