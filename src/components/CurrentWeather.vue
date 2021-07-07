@@ -168,6 +168,12 @@ export default {
   }
   @include down(450px) {
     min-width: 100vw;
+    padding: 42px 24px 52px 24px;
+
+    .current__error {
+      left: 24px;
+      right: 24px;
+    }
   }
 }
 .current__loading {
@@ -181,7 +187,10 @@ export default {
 .current__error {
   position: absolute;
   top: 50%;
+  left: 46px;
+  right: 46px;
   z-index: 1000;
+  text-align: center;
 }
 .current__btn {
   display: flex;

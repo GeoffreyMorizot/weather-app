@@ -7,6 +7,7 @@
           <button
             ref="buttonC"
             @click="setScale('C')"
+            @touchstart="setScale('C')"
             class="btn--circle active"
           >
             °C
@@ -126,7 +127,7 @@ export default {
     }
   }
   @include down(550px) {
-    padding: 42px 50px;
+    padding: 42px 24px;
   }
 }
 .detail__btn-unity {
@@ -149,11 +150,7 @@ export default {
     }
   }
 }
-@supports not (gap: 12px) {
-  .detail__btn-unity {
-    margin-right: 20px;
-  }
-}
+
 .detail__forecast {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));

@@ -84,6 +84,7 @@ export default {
   @include down(450px) {
     width: 100vw;
     height: fit-content;
+    padding: 17px 24px 47px 24px;
   }
 }
 
@@ -141,6 +142,7 @@ export default {
   -webkit-appearance: none;
   color: var(--color-white);
   padding: 15px 0 15px 49px;
+  font-size: 16px;
   &::placeholder {
     color: var(--color-grey);
     font-family: var(--font);
