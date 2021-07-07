@@ -9,6 +9,7 @@ const store = Vue.observable({
   scale: "C",
   isLoading: true,
   error: null,
+  searchIsOpen: false,
 });
 
 export const getters = {
@@ -29,6 +30,9 @@ export const getters = {
   },
   get error() {
     return store.error;
+  },
+  get searchIsOpen() {
+    return store.searchIsOpen;
   },
 };
 
@@ -51,6 +55,9 @@ export const mutations = {
   },
   SET_ERROR(value) {
     store.error = value;
+  },
+  SET_SEARCHISOPEN(boolean) {
+    store.searchIsOpen = boolean;
   },
 };
 
@@ -103,6 +110,10 @@ export const actions = {
   SET_ERROR(msg) {
     mutations.UPDATE_IS_LOADING(false);
     mutations.SET_ERROR(msg);
+  },
+
+  SET_SEARCHISOPEN(boolean) {
+    mutations.SET_SEARCHISOPEN(boolean);
   },
 };
 

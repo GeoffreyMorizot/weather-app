@@ -134,6 +134,7 @@ export default {
   justify-content: flex-end;
   width: 100%;
   gap: 12px;
+
   button {
     font-weight: 700;
     font-size: 18px;
@@ -146,6 +147,11 @@ export default {
       background: var(--color-white);
       color: var(--color-grey);
     }
+  }
+}
+@supports not (gap: 12px) {
+  .detail__btn-unity {
+    margin-right: 20px;
   }
 }
 .detail__forecast {

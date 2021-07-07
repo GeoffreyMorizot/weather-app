@@ -15,7 +15,10 @@
       <img src="../assets/images/loader.svg" alt />
     </div>
     <!-- ERROR -->
-    <div v-if="getError !== null && getError !== 0" class="current__error">
+    <div
+      v-if="getError !== null && getError !== 0 && isOpen === false"
+      class="current__error"
+    >
       <Error :error="getError" />
     </div>
     <!-- WEATHER -->
@@ -77,6 +80,7 @@ export default {
   },
   methods: {
     toggleSearchBar() {
+      actions.SET_SEARCHISOPEN(true);
       this.$refs.search.$el.classList.toggle("open");
     },
     initWeather(latt, long) {
@@ -134,6 +138,9 @@ export default {
     },
     getError() {
       return getters.error;
+    },
+    isOpen() {
+      return getters.searchIsOpen;
     },
   },
 };
