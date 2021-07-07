@@ -1,6 +1,14 @@
-
 module.exports = {
   configureWebpack: {
-    devtool: 'source-map'
-  }
-}
+    devtool: "source-map",
+  },
+  css: {
+    loaderOptions: {
+      scss: {
+        additionalData: `
+        @import "@/assets/style/global.scss";
+        `,
+      },
+    },
+  },
+};

@@ -101,6 +101,7 @@ export const actions = {
     mutations.UPDATE_POSITION(latt, long);
   },
   SET_ERROR(msg) {
+    mutations.UPDATE_IS_LOADING(false);
     mutations.SET_ERROR(msg);
   },
 };

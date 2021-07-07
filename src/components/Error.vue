@@ -18,18 +18,14 @@ export default {
 <style lang="scss">
 .error {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex-center;
   padding: 20px;
   color: var(--color-white);
   border: 2px solid var(--color-red);
   &:before {
     content: "!";
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @extend %flex-center;
     width: 32px;
     height: 32px;
     top: 0;

@@ -1,13 +1,13 @@
 <template>
   <div class="hightlight">
-    <h4>{{title}}</h4>
+    <h4>{{ title }}</h4>
     <p class="hightlight__value">
-      {{value}}
-      <span>{{unity}}</span>
+      {{ value }}
+      <span>{{ unity }}</span>
     </p>
     <div v-if="wind" class="hightlight__wind">
-      <div class="direction"></div>
-      <span>{{windDirection}}</span>
+      <div class="direction" :style="cssVars"></div>
+      <span>{{ windDirection }}</span>
     </div>
     <div v-if="humidity">
       <PercentageBar :percentage="value.toString()" />
@@ -19,9 +19,24 @@
 import PercentageBar from "../components/PercentageBar";
 export default {
   components: {
-    PercentageBar
+    PercentageBar,
   },
-  props: ["title", "value", "unity", "wind", "humidity", "windDirection"],
+  props: [
+    "title",
+    "value",
+    "unity",
+    "wind",
+    "humidity",
+    "windDirection",
+    "windDirectionDegrees",
+  ],
+  computed: {
+    cssVars() {
+      return {
+        "--degrees": `${this.windDirectionDegrees - 180}deg`,
+      };
+    },
+  },
 };
 </script>
 
@@ -33,6 +48,10 @@ export default {
 
   background: var(--color-blue);
   color: var(--color-white);
+
+  @include down(365px) {
+    padding: 24px 32px;
+  }
 
   h4 {
     margin: 0 0 6px 0;
@@ -53,9 +72,7 @@ export default {
   }
 }
 .hightlight__wind {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex-center;
   margin-top: 24px;
 }
 .direction {
@@ -65,5 +82,14 @@ export default {
   border-radius: 50%;
   background: url(../assets/images/ArrowWind.svg) center no-repeat,
     var(--color-grey);
+  animation: smoothRotate 0.7s ease-out 0.1s forwards;
+}
+@keyframes smoothRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(var(--degrees));
+  }
 }
 </style>

@@ -24,7 +24,7 @@
           :data-id="city.woeid"
           @click="getCityID"
           v-for="city in getData"
-          :key="city.title"
+          :key="city.woeid"
         >
           {{ city.title }}
         </li>
@@ -39,7 +39,6 @@ import store, { actions } from "../store";
 export default {
   computed: {
     getData() {
-      console.log(store.cities.length);
       return store.cities;
     },
   },
@@ -81,6 +80,10 @@ export default {
   padding: 17px 47px 47px 47px;
   background: var(--color-blue);
   transform: translate3d(-8 0%, 0, 0);
+  @include down(450px) {
+    width: 100vw;
+    height: fit-content;
+  }
 }
 
 .search__close {
@@ -104,6 +107,7 @@ export default {
     padding: 22px 12px;
     list-style: none;
     color: var(--color-white);
+    border: 1px solid var(--color-dark);
     transition: border 0.3s ease-in;
     &:hover {
       border: 1px solid var(--color-grey);

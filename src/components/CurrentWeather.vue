@@ -25,7 +25,7 @@
           <img :src="getIcons" alt srcset />
         </div>
         <div class="current__temp">
-          <p class="temp">
+          <p v-if="getWeather.consolidated_weather !== undefined" class="temp">
             {{
               getWeather.consolidated_weather[0].the_temp
                 | scale(getScale)
@@ -36,7 +36,9 @@
           </p>
         </div>
         <div class="current__weather__state">
-          <p>{{ getWeather.consolidated_weather[0].weather_state_name }}</p>
+          <p v-if="getWeather.consolidated_weather !== undefined">
+            {{ getWeather.consolidated_weather[0].weather_state_name }}
+          </p>
         </div>
         <div class="current__date">
           <p>Today . {{ date }}</p>
@@ -71,19 +73,18 @@ export default {
         month: "short",
       }),
       position: { latitude: null, longitude: null },
-      errorLocation: "",
-      gettingLocation: false,
     };
   },
   methods: {
     toggleSearchBar() {
       this.$refs.search.$el.classList.toggle("open");
     },
-    initWeather: (latt, long) => actions.FETCH_CITY_COORD(latt, long),
+    initWeather(latt, long) {
+      actions.FETCH_CITY_COORD(latt, long);
+    },
     targetLocation() {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
-          this.gettingLocation = true;
           this.position = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -116,7 +117,6 @@ export default {
     },
   },
   mounted() {
-    console.log("mounted");
     this.targetLocation();
   },
   computed: {
@@ -145,13 +145,26 @@ export default {
   min-width: 459px;
   min-height: 100vh;
   padding: 42px 46px 52px 46px;
-  background: var(--color-blue);
   color: var(--color-grey);
+  background: var(--color-blue);
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    margin-top: 100px;
+    background: url(../assets/images/Cloud-background.png) no-repeat top;
+  }
+  @include down(450px) {
+    min-width: 100vw;
+  }
 }
 .current__loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %flex-center;
   width: 100%;
   height: 100%;
   background: transparent;
@@ -173,16 +186,14 @@ export default {
 }
 .current__icon {
   position: relative;
-  display: flex;
-  justify-content: center;
+  @extend %flex-center-horiz;
   margin-top: 109px;
   width: 100%;
   height: auto;
 }
 .current__temp {
   position: relative;
-  display: flex;
-  justify-content: center;
+  @extend %flex-center-horiz;
   width: 100%;
   margin-top: 87px;
 }
@@ -212,16 +223,14 @@ export default {
 .current__date {
   position: relative;
   margin-top: 87px;
-  display: flex;
-  justify-content: center;
+  @extend %flex-center-horiz;
   width: 100%;
   font-weight: 500;
   font-size: 18px;
   line-height: 21px;
 }
 .current__location {
-  display: flex;
-  justify-content: center;
+  @extend %flex-center-horiz;
   margin-top: 32px;
   width: 100%;
   font-weight: 600;
@@ -231,7 +240,6 @@ export default {
     margin-right: 9px;
   }
 }
-
 .search-wrapper {
   transform: translateX(-100%);
   transition: transform 0.6s cubic-bezier(0.86, 0, 0.07, 1);

@@ -30,11 +30,14 @@
         <!-- CURRENT WEATHER DETAIL -->
         <section class="hightlights">
           <h3 class="hightlights__title">Today’s Hightlights</h3>
-          <div class="hightlights__wrapper">
+          <div v-if="getWeather !== undefined" class="hightlights__wrapper">
             <Hightlights
               wind="true"
               title="Wind status"
               :value="getWeather.consolidated_weather[0].wind_speed | round"
+              :wind-direction-degrees="
+                getWeather.consolidated_weather[0].wind_direction
+              "
               :wind-direction="
                 getWeather.consolidated_weather[0].wind_direction_compass
               "
@@ -116,12 +119,21 @@ export default {
   min-height: 100vh;
   padding: 42px 123px 154px 154px;
   background: var(--color-dark);
+  @include down(583px) {
+    .hightlights__wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  @include down(550px) {
+    padding: 42px 50px;
+  }
 }
-
 .detail__btn-unity {
   display: flex;
-  widows: 100%;
   justify-content: flex-end;
+  width: 100%;
+  gap: 12px;
   button {
     font-weight: 700;
     font-size: 18px;
@@ -135,11 +147,7 @@ export default {
       color: var(--color-grey);
     }
   }
-  button:first-child {
-    margin-right: 12px;
-  }
 }
-
 .detail__forecast {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
@@ -149,7 +157,6 @@ export default {
 .hightlights {
   margin-top: 72px;
 }
-
 .hightlights__title {
   margin: 0 0 32px 0;
   font-weight: 700;
