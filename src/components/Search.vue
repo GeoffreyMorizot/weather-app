@@ -19,17 +19,19 @@
       <input @click="searchCity" class="input__submit" type="submit" />
     </div>
     <div>
-      <ul class="search__response" v-if="!getData.length == 0">
+      <ul class="search__response" v-if="!filteredData.length == 0">
         <li
           :data-id="city.woeid"
           @click="getCityID"
-          v-for="city in getData"
+          v-for="city in filteredData"
           :key="city.woeid"
         >
           {{ city.title }}
         </li>
       </ul>
-      <div class="search__no-result" v-if="getData.length === 0">No result</div>
+      <div class="search__no-result" v-if="filteredData.length === 0">
+        No result
+      </div>
     </div>
   </div>
 </template>
@@ -38,8 +40,12 @@
 import store, { actions } from "../store";
 export default {
   computed: {
-    getData() {
-      return store.cities;
+    filteredData() {
+      return store.cities.filter((city) => {
+        if (city.title.toLowerCase().startsWith(`${this.value}`)) {
+          return city;
+        }
+      });
     },
   },
   data() {
