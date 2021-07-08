@@ -5,3 +5,19 @@
       @content;
     }
   }
+
+
+  @mixin gap($direction,$size) {
+    @if $direction == row{
+      & > *:not(:last-child){
+        margin-bottom: $size;
+       } 
+    }@else{
+      & > *:not(:last-child){
+        margin-right: $size;
+       } 
+    }
+  }
+
+
+ 

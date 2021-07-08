@@ -4,7 +4,7 @@
     <Search ref="search" class="search-wrapper" />
     <!-- TOP BUTTON -->
     <div class="current__btn">
-      <button @click="toggleSearchBar">Search for places</button>
+      <button class="btn" @click="toggleSearchBar">Search for places</button>
       <button
         @click="targetLocation"
         class="current__target btn--circle"
@@ -154,6 +154,20 @@ export default {
   padding: 42px 46px 52px 46px;
   color: var(--color-grey);
   background: var(--color-blue);
+  @include down(1024px) {
+    min-width: 350px;
+  }
+  @include down(500px) {
+    padding: 18px 12px 105px 12px;
+    min-width: 100vw;
+  }
+
+  @include down(450px) {
+    .current__error {
+      left: 24px;
+      right: 24px;
+    }
+  }
 
   &:before {
     content: "";
@@ -165,15 +179,6 @@ export default {
     opacity: 0.1;
     margin-top: 100px;
     background: url(../assets/images/Cloud-background.png) no-repeat top;
-  }
-  @include down(450px) {
-    min-width: 100vw;
-    padding: 42px 24px 52px 24px;
-
-    .current__error {
-      left: 24px;
-      right: 24px;
-    }
   }
 }
 .current__loading {

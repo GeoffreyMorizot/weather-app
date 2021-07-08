@@ -7,7 +7,6 @@
           <button
             ref="buttonC"
             @click="setScale('C')"
-            @touchstart="setScale('C')"
             class="btn--circle active"
           >
             °C
@@ -120,26 +119,30 @@ export default {
   min-height: 100vh;
   padding: 42px 123px 154px 154px;
   background: var(--color-dark);
-  @include down(583px) {
+  @include down(1040px) {
+    padding: 42px 64px;
+  }
+  @include down(550px) {
+    padding: 42px 24px;
+  }
+  @include down(340px) {
     .hightlights__wrapper {
       display: flex;
       flex-direction: column;
     }
-  }
-  @include down(550px) {
-    padding: 42px 24px;
   }
 }
 .detail__btn-unity {
   display: flex;
   justify-content: flex-end;
   width: 100%;
-  gap: 12px;
+  @include gap("col", 12px);
 
   button {
     font-weight: 700;
     font-size: 18px;
     line-height: 21px;
+
     &.active {
       background: var(--color-white);
       color: var(--color-grey);

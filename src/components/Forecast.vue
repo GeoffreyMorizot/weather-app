@@ -1,16 +1,16 @@
 <template>
   <div class="forecast">
-    <p class="forecast__day">{{ date | day }}</p>
+    <p class="forecast__day card-title">{{ date | day }}</p>
     <div class="forecast__img">
       <img :src="getIcons" alt="" srcset="" />
     </div>
-    <div class="forecast__min-max">
+    <div class="forecast__min-max temp">
       <p>
         {{ tempMax | scale(getScale) | round }}
         <span v-if="getScale === 'C'">°C</span>
         <span v-if="getScale === 'F'">°F</span>
       </p>
-      <p class="min">
+      <p class="temp--min">
         {{ tempMin | scale(getScale) | round }}
         <span v-if="getScale === 'C'">°C</span>
         <span v-if="getScale === 'F'">°F</span>
@@ -88,9 +88,6 @@ export default {
   justify-content: space-between;
   margin-top: 15px;
 
-  .min {
-    color: var(--color-grey);
-  }
   & p > span {
     margin-left: -3px; //stick the unit to the temperature
   }

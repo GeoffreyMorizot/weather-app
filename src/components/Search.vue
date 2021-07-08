@@ -77,10 +77,13 @@ export default {
   left: 0;
   width: 459px;
   min-height: 100vh;
-  height: 100%;
   padding: 17px 47px 47px 47px;
   background: var(--color-blue);
   transform: translate3d(-8 0%, 0, 0);
+  @include down(1024px) {
+    width: 100%;
+  }
+
   @include down(450px) {
     width: 100vw;
     height: fit-content;
@@ -102,7 +105,7 @@ export default {
 .search__response {
   display: flex;
   flex-direction: column;
-  row-gap: 4px;
+  @include gap("row", 5px);
   padding: 0;
   margin-bottom: 40px;
   margin-top: 58px;
@@ -135,7 +138,7 @@ export default {
   width: 100%;
 }
 .input {
-  width: 268px;
+  flex-grow: 1;
   background: transparent;
   border: 1px solid var(--color-white);
   border-radius: 0;
@@ -163,8 +166,8 @@ export default {
   }
 }
 .input__submit {
-  flex-grow: 1;
-  height: 48px;
+  flex-grow: 0.5;
+  height: 51px;
   margin-left: 12px;
   border-radius: 0;
   border: 0;
