@@ -142,6 +142,7 @@ export default {
     font-weight: 700;
     font-size: 18px;
     line-height: 21px;
+    z-index: 100;
 
     &.active {
       background: var(--color-white);
