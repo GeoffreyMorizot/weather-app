@@ -63,8 +63,10 @@ export const mutations = {
 
 export const actions = {
   FETCH_CITY(params) {
+    mutations.UPDATE_IS_LOADING(true);
     return AppServices.getCity(params)
       .then((response) => {
+        mutations.UPDATE_IS_LOADING(false);
         mutations.SET_ERROR(null);
         mutations.SET_CITIES(response.data);
       })
@@ -78,6 +80,7 @@ export const actions = {
     mutations.UPDATE_IS_LOADING(true);
     return AppServices.getCityByCoord(latt, long)
       .then((response) => {
+        mutations.UPDATE_IS_LOADING(false);
         mutations.SET_ERROR(null);
         mutations.SET_CITIES(response.data);
         this.FETCH_WEATHER(getters.cities[0].woeid); //Fetch la ville la plus prêt
@@ -91,9 +94,9 @@ export const actions = {
     mutations.UPDATE_IS_LOADING(true);
     return AppServices.getCurrentWeather(id)
       .then((response) => {
-        mutations.SET_CURRENT_WEATHER(response.data);
         mutations.UPDATE_IS_LOADING(false);
         mutations.SET_ERROR(null);
+        mutations.SET_CURRENT_WEATHER(response.data);
       })
       .catch(function(error) {
         mutations.UPDATE_IS_LOADING(false);

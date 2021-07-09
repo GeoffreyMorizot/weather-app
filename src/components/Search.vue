@@ -29,23 +29,37 @@
           {{ city.title }}
         </li>
       </ul>
-      <div class="search__no-result" v-if="filteredData.length === 0">
-        No result
+      <div
+        class="search__no-result"
+        v-if="filteredData.length === 0 && lenghtValue > 0 && !isloading"
+      >
+        <p>
+          No results for "<span>{{ value }}</span
+          >"
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import store, { actions } from "../store";
+import { getters, actions } from "../store";
 export default {
   computed: {
     filteredData() {
-      return store.cities.filter((city) => {
-        if (city.title.toLowerCase().startsWith(`${this.value}`)) {
+      return getters.cities.filter((city) => {
+        if (
+          city.title.toLowerCase().startsWith(`${this.value.toLowerCase()}`)
+        ) {
           return city;
         }
       });
+    },
+    lenghtValue() {
+      return this.value.length;
+    },
+    isloading() {
+      return getters.isLoading;
     },
   },
   data() {
